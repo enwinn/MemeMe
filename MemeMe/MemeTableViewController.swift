@@ -54,11 +54,9 @@ class MemeTableViewController: UITableViewController {
         self.navigationController!.pushViewController(detailController, animated: true)
     }
     
-    // Launch Meme Editor
+    // Launch Meme Editor (Note: Since it was the initial VC so just going back in reality)
     @IBAction func addMemeButton(sender: AnyObject) {
-        let controller = self.storyboard?.instantiateViewControllerWithIdentifier("Meme Editor") as! MemeEditorViewController
-        controller.hidesBottomBarWhenPushed = true
-        self.navigationController!.presentViewController(controller, animated: true, completion: nil)
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
     
 }

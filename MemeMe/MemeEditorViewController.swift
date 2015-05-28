@@ -10,6 +10,11 @@ import UIKit
 
 class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
     
+    // MARK: - Model
+    // MARK: - Shared Model
+    var memes: [Meme]!
+
+    
     // MARK: - Outlets
     @IBOutlet weak var memeImage: UIImageView!
     @IBOutlet weak var cameraButton: UIBarButtonItem!
@@ -26,14 +31,35 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
         NSFontAttributeName : UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!,
         NSStrokeWidthAttributeName : -3.0
     ]
+    // Note: Control to allow Meme Editor as initial view but then go to Tab Bar views if Editor cancelled
+    //       or go to Sent Memes if we already have sent data persisted.
+    var gotMemes = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let applicationDelegate = (UIApplication.sharedApplication().delegate as! AppDelegate)
+        memes = applicationDelegate.memes
+
         cameraButton.enabled = UIImagePickerController.isSourceTypeAvailable(.Camera)
         shareButton.enabled = false
         
         topText.delegate = self
         bottomText.delegate = self
+        
+        // Toggle initial view control logic
+        if memes.count > 0 {
+            gotMemes = true
+        }
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        // Toggle initial view control logic
+        if gotMemes {
+            gotMemes = false
+            self.goTabBar()
+        }
     }
     
     // MARK: - Keyboard notification and text defaults
@@ -53,15 +79,17 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
             NSNotificationCenter.defaultCenter().removeObserver(self)
         }
     
+    // ref: - http://stackoverflow.com/questions/25874975/cant-get-correct-value-of-keyboard-height-in-ios
     func keyboardWillShow(notification: NSNotification) {
         if self.bottomText.isFirstResponder() {
-            self.view.frame.origin.y -= getKeyboardHeight(notification)
+            self.view.frame.origin.y = -getKeyboardHeight(notification)
         }
     }
     
     func keyboardWillHide(notification: NSNotification) {
         if self.bottomText.isFirstResponder() {
-            self.view.frame.origin.y += getKeyboardHeight(notification)
+            // Just return origin to it's default since this should not be changing for this app
+            self.view.frame.origin.y = 0.0
         }
     }
     
@@ -186,8 +214,8 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
             } else {
                 // save the meme
                 self.save()
-                // Done with MemeEdit VC, return to Sent Memes VC
-                self.goBack()
+                // Done with MemeEdit VC, go to Sent Memes VC via tab bar navigation
+                self.goTabBar()
             }
         }
         // Disable sending to printer
@@ -221,11 +249,11 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     
     // MARK: - Cancel Meme Editor VC
     @IBAction func cancelMemeEdit(sender: AnyObject) {
-        self.goBack()
+        self.goTabBar()
     }
     
     // MARK: - Utility functions
-    func goBack() {
+    func goTabBar() {
         if let controller = self.storyboard?.instantiateViewControllerWithIdentifier("tabBarController") as? UITabBarController {
             self.presentViewController(controller, animated: true, completion: nil)
         } else {
