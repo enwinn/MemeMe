@@ -74,10 +74,10 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
         notificationCenter.addObserver(self, selector: "keyboardWillHide:", name: UIKeyboardWillHideNotification, object: nil)
     }
     
-        override func viewWillDisappear(animated: Bool) {
-            super.viewWillDisappear(animated)
-            NSNotificationCenter.defaultCenter().removeObserver(self)
-        }
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
     
     // ref: - http://stackoverflow.com/questions/25874975/cant-get-correct-value-of-keyboard-height-in-ios
     func keyboardWillShow(notification: NSNotification) {
@@ -120,7 +120,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
         presentViewController(pickerController, animated: true, completion: nil)
     }
     
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         if let chosenImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
             memeImage.contentMode = .ScaleAspectFit
             memeImage.image = chosenImage
@@ -135,7 +135,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     
     
     // MARK: - textField functions
-    func setTextFieldDefaults(textField: UITextField, tag: Int, placeholder: String, textAttributes: [NSObject: AnyObject]) -> Bool {
+    func setTextFieldDefaults(textField: UITextField, tag: Int, placeholder: String, textAttributes: [String: AnyObject]) -> Bool {
         // NOTE: autocapitalizationType only works with the device software keyboard but
         // external keyboards will not. Using shouldChangeCharactersInRange delegate method instead.
         textField.tag = tag
@@ -156,25 +156,25 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     // ATTRIB: - http://stackoverflow.com/a/13388037
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
         // Prevent undo crash
-        if range.location + range.length > (textField.text as NSString).length {
+        if range.location + range.length > (textField.text! as NSString).length {
             return false
         }
         
         // Force entry to uppercase
         let lowercaseCharacters = NSCharacterSet.lowercaseLetterCharacterSet()
         
-        if let lowercaseRange = string.rangeOfCharacterFromSet(lowercaseCharacters) {
+        if let _ = string.rangeOfCharacterFromSet(lowercaseCharacters) {
             let uppercaseString = string.uppercaseString
-            if textField.text.isEmpty {
+            if textField.text!.isEmpty {
                 // Updates return button; forces cursor to the end
-                textField.text = (textField.text as NSString).stringByReplacingCharactersInRange(range, withString: uppercaseString)
+                textField.text = (textField.text! as NSString).stringByReplacingCharactersInRange(range, withString: uppercaseString)
             } else {
                 // Preserves cursor location; doesn't update return button
                 let beginning = textField.beginningOfDocument
                 let start = textField.positionFromPosition(beginning, offset: range.location)!
                 let end = textField.positionFromPosition(start, offset: range.length)!
                 let range = textField.textRangeFromPosition(start, toPosition: end)
-                textField.replaceRange(range, withText: uppercaseString)
+                textField.replaceRange(range!, withText: uppercaseString)
             }
             return false
         } else {
@@ -190,9 +190,9 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
-        if textField.text.isEmpty && textField.tag == 0 {
+        if textField.text!.isEmpty && textField.tag == 0 {
             textField.text = "TOP"
-        } else if textField.text.isEmpty && textField.tag == 1 {
+        } else if textField.text!.isEmpty && textField.tag == 1 {
             textField.text = "BOTTOM"
         }
         textField.resignFirstResponder()
@@ -240,7 +240,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     
     func save() {
         let image = generateMemedImage()
-        var meme = Meme(top: topText.text!, bottom: bottomText.text!, image: memeImage.image!, memedImage: image)
+        let meme = Meme(top: topText.text!, bottom: bottomText.text!, image: memeImage.image!, memedImage: image)
         // Add to memes array
         let applicationDelegate = (UIApplication.sharedApplication().delegate as! AppDelegate)
         applicationDelegate.memes.append(meme)
@@ -257,7 +257,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
         if let controller = self.storyboard?.instantiateViewControllerWithIdentifier("tabBarController") as? UITabBarController {
             self.presentViewController(controller, animated: true, completion: nil)
         } else {
-            println("Something is broken...")
+            print("Something is broken...")
         }
     }
 }

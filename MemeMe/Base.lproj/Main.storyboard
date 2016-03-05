@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Yrt-zF-kbE">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Yrt-zF-kbE">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -113,8 +114,8 @@
                         <color key="backgroundColor" red="1" green="0.744418464" blue="0.63284826039999997" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="8dK-Y6-cO0" firstAttribute="top" secondItem="vAm-pW-OJS" secondAttribute="bottom" id="eUV-jI-m0c"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="vAm-pW-OJS" secondAttribute="trailing" constant="-16" id="kvP-IA-4ch"/>
-                            <constraint firstItem="vAm-pW-OJS" firstAttribute="leading" secondItem="ejc-7T-SWm" secondAttribute="leadingMargin" constant="-16" id="mGX-Hp-Z5J"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="vAm-pW-OJS" secondAttribute="trailing" constant="-20" id="kvP-IA-4ch"/>
+                            <constraint firstItem="vAm-pW-OJS" firstAttribute="leading" secondItem="ejc-7T-SWm" secondAttribute="leadingMargin" constant="-20" id="mGX-Hp-Z5J"/>
                             <constraint firstItem="vAm-pW-OJS" firstAttribute="top" secondItem="ejc-7T-SWm" secondAttribute="topMargin" id="xf7-ah-eYg"/>
                         </constraints>
                     </view>
@@ -163,10 +164,10 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.744418464" blue="0.63284826039999997" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="yWN-iR-ZGl" secondAttribute="trailing" constant="-16" id="X5D-2P-GSM"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="yWN-iR-ZGl" secondAttribute="trailing" constant="-20" id="X5D-2P-GSM"/>
                             <constraint firstItem="etQ-3a-eWq" firstAttribute="top" secondItem="yWN-iR-ZGl" secondAttribute="bottom" id="ccC-K3-O0Q"/>
                             <constraint firstItem="yWN-iR-ZGl" firstAttribute="top" secondItem="t8p-64-3G6" secondAttribute="topMargin" id="nXG-1y-Mua"/>
-                            <constraint firstItem="yWN-iR-ZGl" firstAttribute="leading" secondItem="t8p-64-3G6" secondAttribute="leadingMargin" constant="-16" id="tux-77-dwz"/>
+                            <constraint firstItem="yWN-iR-ZGl" firstAttribute="leading" secondItem="t8p-64-3G6" secondAttribute="leadingMargin" constant="-20" id="tux-77-dwz"/>
                         </constraints>
                     </view>
                     <nil key="simulatedBottomBarMetrics"/>
@@ -189,17 +190,21 @@
                         <color key="sectionIndexBackgroundColor" red="1" green="0.744418464" blue="0.63284826039999997" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleAspectFit" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" textLabel="Pfz-xX-Rsk" detailTextLabel="MIZ-Ak-pQ3" style="IBUITableViewCellStyleValue1" id="zVx-uT-yGH">
+                                <rect key="frame" x="0.0" y="86" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="zVx-uT-yGH" id="oIC-KH-w68">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Pfz-xX-Rsk">
+                                            <rect key="frame" x="15" y="12" width="32" height="20"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="&gt;" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="MIZ-Ak-pQ3">
+                                            <rect key="frame" x="574" y="12" width="11" height="20"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <color key="textColor" red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="calibratedRGB"/>
@@ -244,7 +249,7 @@
                         </collectionViewFlowLayout>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" reuseIdentifier="cell" id="0nf-1z-hny">
-                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                <rect key="frame" x="0.0" y="64" width="100" height="100"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>

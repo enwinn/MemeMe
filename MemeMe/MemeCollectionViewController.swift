@@ -29,7 +29,7 @@ class MemeCollectionViewController: UICollectionViewController, UICollectionView
     }
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("cell", forIndexPath: indexPath) as! UICollectionViewCell
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("cell", forIndexPath: indexPath) 
         let meme = self.memes[indexPath.row]
         
         // Connect the dots...
